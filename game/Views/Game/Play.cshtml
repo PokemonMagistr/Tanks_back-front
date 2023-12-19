@@ -1,0 +1,155 @@
+﻿@{
+    Layout = null;
+}
+
+<html>
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+            integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+            crossorigin="anonymous"></script>
+    <script>
+        var objects = [];
+
+        var keyup;
+        var keydown;
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const gameId = urlParams.get('gameId');
+        const userId = urlParams.get('userId');
+
+        var hero = null;
+
+        function myRender(serverObject)
+        {
+            let d=document.createElement('div');
+            d.style.width = serverObject.Width + "px";
+            d.style.height = serverObject.Height + "px";
+            d.style.backgroundImage = serverObject.BackgroundImage;
+
+            d.style.bottom = serverObject.Bottom + "px";
+            d.style.left = serverObject.Left + "px";
+            d.style.backgroundSize = serverObject.BackgroundSize;
+            d.style.position = serverObject.Position;
+            d.style.transform = serverObject.Transform;
+            d.id = serverObject.Id;
+            d.type = serverObject.Type;
+            d.className = serverObject.ObjectType;
+
+                document.body.appendChild(d);
+
+            
+
+            if (serverObject.Type == "hero")
+            {
+                let h = document.createElement('div');
+                h.id = serverObject.Id + "-health-bar";
+                h.style.width= serverObject.Width  + "px";
+                h.style.height = 8 + "px";
+                h.style.bottom = serverObject.Bottom - 8 + "px";
+                h.style.left = "0px";
+                h.style.background = "red";
+                d.appendChild(h);
+            }
+
+            document.body.appendChild(d);
+            
+            }
+
+        function refresh() 
+        {
+            $.get("https://localhost:7215/Game/GetElements?gameId=" + gameId + "&userId=" + userId, function (data) {
+
+                arr = JSON.parse(data);
+
+                for (let i = 0; i < arr.length; i++) 
+                {
+
+                    var ex = false;
+                    for (let j = 0; j < objects.length; j++) 
+                    {
+                        if (arr[i].Id == objects[j].Id) 
+                        {
+                            ex = true;
+                            document.getElementById(arr[i].Id).style.left = arr[i].Left + "px";
+                            document.getElementById(arr[i].Id).style.bottom = arr[i].Bottom + "px";
+                            if (arr[i].Type == "hero") 
+                            {
+                                var a = arr[i].Angle;
+                                document.getElementById(arr[i].Id).style.transform = "rotate(" + a + "deg)";
+                                document.getElementById(arr[i].Id).style.left = arr[i].Left + "px";
+                                document.getElementById(arr[i].Id).style.bottom = arr[i].Bottom + "px";
+                                break;
+                            }
+                        }
+
+
+                    }
+                    if (!ex) {
+                        myRender(arr[i]);
+                    }
+                }
+                for (var i = 0; i < objects.length; i++) 
+                {
+                    var ex = false;
+                    for (var j = 0; j < arr.length; j++) 
+                    {
+                        if (arr[j].Id == objects[i].Id) 
+                        {
+                            ex = true;
+                            break;
+                        }
+                    }
+                    if (!ex) 
+                    {
+                        document.body.removeChild(document.getElementById(objects[i].Id));
+                    }
+                }
+
+                objects = arr;
+
+            });
+        }
+
+
+
+        document.addEventListener('keydown', function (event) {
+            $.get("https://localhost:7215/Game/PressButton?buttonCode="+event.keyCode+"&isDown=true&gameId="+gameId+"&userId="+userId);
+            keydown = true;
+        });
+
+        document.addEventListener('keyup', function (event) {
+            $.get("https://localhost:7215/Game/PressButton?buttonCode="+event.keyCode+"&isDown=false&gameId="+gameId+"&userId="+userId);
+            keydown = false;
+        });
+
+        function play()
+        {
+           refresh();
+
+        }
+
+        document.addEventListener('DOMContentLoaded', function ()
+        {
+            $.get("https://localhost:7215/Game/GetElements?gameId="+gameId+"&userId="+userId, function(data) {
+                var arr = JSON.parse(data);
+
+                for (let i = 0; i < arr.length; i++) {
+                    if (arr[i].Type == "hero" && arr[i].UserId == userId)
+                    {
+                        hero = arr[i];
+                    }
+                    myRender(arr[i]);
+                }
+                objects = arr; // objects - объекты на клиенте arr - объекты на сервере
+            });
+            var playInterval = setInterval(play, 30);
+        });
+    </script>
+</head>
+<body style="
+    background: black;
+
+">
+
+</body>
+</html>
