@@ -1,12 +1,39 @@
 ﻿@{
-    ViewData["Title"] = "Регистрация";
+    Layout = null;
 }
-<div class="text-center">
-    <form method="post">
-        <h1 class="display-4">Регистрация</h1>
-        <input type="text" name="login" /><br />
-        <input type="password" name="password" /><br />
-        <input type="password" name="password2" /><br />
-        <button>Зарегистрироваться</button>
-    </form>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Авторизация</title>
+    <link rel="stylesheet" type="text/css" href="~/css/site2.css">
+</head>
+<body>
+    <div class="wrapper">
+        <div class="form-wrapper sign-in">
+            <form method="post">
+                <h1>Login</h1>
+                <div class="input-group">
+                    <input type="text" name="login" required>
+                    <label for="login">Username</label>
+                </div>
+                <div class="input-group">
+                    <input type="password" name="password" required>
+                    <label for="password">Password</label>
+                </div>
+                <div class="input-group">
+                    <input type="password" name="password2" required>
+                    <label for="password">Again Password</label>
+                </div>
+                <button type="submit">Login</button>
+                <div class="signUp-link">
+                    <p>Already have an account? <a href="/Home/Index" class="signUpBtn-link">Sign Ip</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
