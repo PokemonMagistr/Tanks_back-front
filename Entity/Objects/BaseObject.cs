@@ -27,7 +27,7 @@ namespace Entity.Objects
 
         public int HP { get; set; }
         public DateTime? LastFire { get; set; }
-
+        public string Mess { get; set; }
 
 
         private static int CurentId = 0;
@@ -52,7 +52,7 @@ namespace Entity.Objects
             clone.BackgroundSize = this.BackgroundSize;
             clone.Angle = this.Angle;
             clone.HP = this.HP;
-
+            clone.Mess = this.Mess;
 
             clone.Type = this.Type;
 

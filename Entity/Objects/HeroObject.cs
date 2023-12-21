@@ -9,6 +9,7 @@ namespace Entity.Objects
         
         public HeroObject() : base()
         {
+            Mess = "";
             Width = 40;
             Height = 40;
             Left = 910;

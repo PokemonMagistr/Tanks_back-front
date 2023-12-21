@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Quartz;
 using System.Diagnostics.SymbolStore;
 using System.Configuration;
+using System.Reflection.PortableExecutable;
 
 namespace BL
 {
@@ -18,18 +19,21 @@ namespace BL
 
         public static ConcurrentDictionary<int, ConcurrentDictionary<int, bool>> usersInGame = new ConcurrentDictionary<int, ConcurrentDictionary<int, bool>>();
 
-        //public static ConcurrentDictionary<int, ConcurrentDictionary<int, (bool, double, double)>> allBullets = new ConcurrentDictionary<int, ConcurrentDictionary<int, (bool, double, double)>>();
+        public static ConcurrentDictionary<int, ConcurrentDictionary<string, ConcurrentDictionary<string, string>>> Messages = new  ConcurrentDictionary<int, ConcurrentDictionary<string, ConcurrentDictionary<string, string>>>();
+
+       
         public static Entity.Objects.BaseObject temp;
         public static Entity.Objects.BaseObject obj;
         public static void Initialization(Entity.Game game)
         {
-            //Entity.Objects.BaseObject temp;
+
             allButtons.TryAdd(game.Id, new ConcurrentDictionary<int, ConcurrentDictionary<int, bool>>());
             usersInGame.TryAdd(game.Id, new ConcurrentDictionary<int, bool>());
-            //allBullets.TryAdd(game.Id, new ConcurrentDictionary<int, (bool, double, double)>());
+            Messages.TryAdd(game.Id,  new ConcurrentDictionary<string, ConcurrentDictionary<string, string>>());
+
 
             var arr = new ConcurrentDictionary<string, Entity.Objects.BaseObject>();
-            //var array = new ConcurrentDictionary<string, Entity.Objects.Item>();
+
 
 
             for (int i = 0; i < 50; i++)// верхяя горизонтальная линия
@@ -61,10 +65,6 @@ namespace BL
                 block.Bottom = 30 + (i * 30);
                 arr.TryAdd(block.Id, block);
             }
-
-
-
-
 
             for (int i = 0; i < 4; i++) // левая верхняя палка
             {
@@ -114,14 +114,6 @@ namespace BL
             block5.Bottom = 150;
             arr.TryAdd(block5.Id, block5);
 
-
-
-
-
-
-
-
-
             allGames.TryAdd(game.Id, arr);
         }
 
@@ -129,8 +121,9 @@ namespace BL
         {
 
             allButtons[gameId].TryAdd(userId, new ConcurrentDictionary<int, bool>());
-            //allBullets[gameId].TryAdd(userId, (false, 0, 0));
             usersInGame[gameId].TryAdd(userId, true);
+
+            Messages[gameId].TryAdd(userId.ToString(), new ConcurrentDictionary<string, string>());
 
 
             var userHero = new Entity.Objects.HeroObject();
@@ -296,12 +289,21 @@ namespace BL
                             if (i.Id == sb.Id) continue;
                             if (Intersects(cx, cx1, cy, cy1, ax, ax1, ay, ay1) == true)
                             {
+                                if(sb.Type == "hero")
+                                {
+                                    sb.HP = sb.HP - 25;
+                                    if(sb.HP <= 0)
+                                    {
+                                        sb.Mess = "You Lose";
+
+                                        _ = allGames[gameId].Remove(sb.Id, out _);
+                                    }
+                                }
                                 canMoveb = false;
                                 i.XDelta = 0;
                                 i.XPos = 0;
 
-                                //Entity.Objects.BaseObject temp;
-                                //var obj = (Entity.Objects.BulletObject)i;
+
                                 obj = i;
                                 allGames[gameId].Remove(obj.Id, out temp);
 
@@ -343,12 +345,21 @@ namespace BL
                             if (i.Id == sb.Id) continue;
                             if (Intersects(cx, cx1, cy, cy1, ax, ax1, ay, ay1) == true)
                             {
+                                if (sb.Type == "hero")
+                                {
+                                    sb.HP = sb.HP - 25;
+                                    if (sb.HP <= 0)
+                                    {
+                                        sb.Mess = "You Lose";
+
+                                        _ = allGames[gameId].Remove(sb.Id, out _);
+                                    }
+                                }  
                                 canMoveb = false;
                                 i.YDelta = 0;
                                 i.YPos = 0;
 
-                                //Entity.Objects.BaseObject temp;
-                                //var obj = (Entity.Objects.BulletObject)i;
+
                                 obj = i;
                                 allGames[gameId].Remove(obj.Id, out temp);
 
@@ -364,8 +375,7 @@ namespace BL
                                 i.Bottom = i.Bottom + i.YDelta;
                                 if (i.YPos == 0)
                                 {
-                                    //Entity.Objects.BaseObject temp;
-                                    //var obj = (Entity.Objects.BulletObject)i;
+
                                     obj = i;
                                     allGames[gameId].Remove(obj.Id, out temp);
                                     break;
@@ -378,9 +388,12 @@ namespace BL
                         }
                     }
                 }
+
+
             }         
             
         }
+
 
         
         public static void CheckMove(int gameId)
@@ -408,7 +421,7 @@ namespace BL
                                 case 40: // ArrowDown
                                     i.Angle = 180;
                                     break;
-                                    // Добавьте обработку других клавиш при необходимости
+
                             }
                         }
                         //left

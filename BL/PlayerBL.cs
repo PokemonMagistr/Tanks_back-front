@@ -10,7 +10,10 @@ namespace BL
         {
             return DAL.PlayerDAL.AddOrUpdate(player);
         }
-
+        public static void AddOrUpdate(Entity.Player player)
+        {
+            DAL.PlayerDAL.AddOrUpdate(player);
+        }
         public static bool Autorisations(Entity.Player player)
         {
             var getPlayer = DAL.PlayerDAL.Get(player.Name);

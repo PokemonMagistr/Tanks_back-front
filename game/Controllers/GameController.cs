@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Quartz;
@@ -56,7 +57,7 @@ namespace game.Controllers
         //[Authorize]
         public async Task<IActionResult> CreateGame()
         {
-
+            
             var game = new Entity.Game();
 
             game.HostId = BL.PlayerBL.Get(User.Identity.Name).Id;
@@ -124,9 +125,6 @@ namespace game.Controllers
             return View();
         }
 
-
-
-
         public IActionResult PressButton(int buttonCode, bool isDown, int gameId, int userId)
         {
             if (isDown)
@@ -175,7 +173,17 @@ namespace game.Controllers
             }
             else return Ok();
         }
-
-
+        public async Task<IActionResult> Win(int userId)
+        {
+            var player = BL.PlayerBL.Get(userId);
+            player.Score += 100;
+            BL.PlayerBL.AddOrUpdate(player);
+            return View(player);
+        }
+        public async Task<IActionResult> Lose(int userId)
+        {
+            var player = BL.PlayerBL.Get(userId);
+            return View(player);
+        }
     }
 }
