@@ -18,6 +18,8 @@ namespace Entity.Objects
             BackgroundSize = "contain";
             Position = "absolute";
             Type = "Block";
+            Destroy = false;
+            ZIndex = 1;
         }
     }
 }

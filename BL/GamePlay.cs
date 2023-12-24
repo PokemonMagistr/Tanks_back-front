@@ -16,7 +16,6 @@ namespace BL
             JobDataMap dataMap = context.JobDetail.JobDataMap;
 
             int gameId = dataMap.GetInt("gameId");
-
             GameLogic.MovePlayer(gameId);
             GameLogic.CheckMove(gameId);
             GameLogic.MoveBullets(gameId);

@@ -29,7 +29,10 @@ namespace Entity.Objects
         public DateTime? LastFire { get; set; }
         public string Mess { get; set; }
 
+        public bool Destroy { get; set; }
+        public int ZIndex { get; set; }
 
+        public double Opacity { get; set; }
         private static int CurentId = 0;
 
         public BaseObject()
@@ -67,7 +70,10 @@ namespace Entity.Objects
 
             clone.LastFire = this.LastFire;
 
+            clone.Destroy = this.Destroy;
 
+            clone.ZIndex = this.ZIndex;
+            clone.Opacity = this.Opacity;
             return clone;
         }
     }

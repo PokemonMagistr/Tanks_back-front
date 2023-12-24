@@ -1,10 +1,11 @@
 ﻿@{
     Layout = null;
 }
-
+<!doctype html>
 <html>
 
 <head>
+    <meta charset="utf-8" />
     <script src="https://code.jquery.com/jquery-3.6.0.js"
             integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
             crossorigin="anonymous"></script>
@@ -38,8 +39,13 @@
             d.id = serverObject.Id;
             d.type = serverObject.Type;
             d.className = serverObject.ObjectType;
+            d.style.zIndex = serverObject.ZIndex;
+            if(serverObject.Type == "Kust" || serverObject.Type == "hero")
+            {
+                d.style.opacity = serverObject.Opacity;
+            }
 
-                document.body.appendChild(d);
+                //document.body.appendChild(d);
 
             
 
@@ -75,37 +81,44 @@
                     {
                         if (arr[i].Id == objects[j].Id) 
                         {
+                            var element = document.getElementById(arr[i].Id);
                             ex = true;
-                            document.getElementById(arr[i].Id).style.left = arr[i].Left + "px";
-                            document.getElementById(arr[i].Id).style.bottom = arr[i].Bottom + "px";
+                            element.style.left = arr[i].Left + "px";
+                            element.style.bottom = arr[i].Bottom + "px";
+
+
                             if (arr[i].Type == "hero") 
                             {
+                                
                                 var a = arr[i].Angle;
-                                document.getElementById(arr[i].Id).style.transform = "rotate(" + a + "deg)";
-                                document.getElementById(arr[i].Id).style.left = arr[i].Left + "px";
-                                document.getElementById(arr[i].Id).style.bottom = arr[i].Bottom + "px";
+                                element.style.transform = "rotate(" + a + "deg)";
+                                element.style.left = arr[i].Left + "px";
+                                element.style.bottom = arr[i].Bottom + "px";
+                                element.style.opacity = arr[i].Opacity;
 
+                                var elementChild = document.getElementById(arr[i].Id + "-health-bar");
                                 if(a==0)
                                 {
-                                    document.getElementById(arr[i].Id + "-health-bar").style.width = arr[i].HP / 100 * parseInt(arr[i].Width);
-                                    document.getElementById(arr[i].Id + "-health-bar").style.transform = "translate(0px, 45px) rotate(0deg)";
+                                    elementChild.style.width = arr[i].HP / 100 * parseInt(arr[i].Width);
+                                    elementChild.style.transform = "translate(0px, 45px) rotate(0deg)";
                 
                                 }
                                 else if(a ==90)
                                 {
-                                    document.getElementById(arr[i].Id + "-health-bar").style.width = arr[i].HP / 100 * parseInt(arr[i].Width);
-                                    document.getElementById(arr[i].Id + "-health-bar").style.transform = "translate(25px, 18px) rotate(90deg)";
+                                    elementChild.style.width = arr[i].HP / 100 * parseInt(arr[i].Width);
+                                    elementChild.style.transform = "translate(25px, 18px) rotate(90deg)";
 
                                 }
                                 else if(a ==180)
                                 {
-                                    document.getElementById(arr[i].Id + "-health-bar").style.width = arr[i].HP / 100 * parseInt(arr[i].Width);
-                                    document.getElementById(arr[i].Id + "-health-bar").style.transform = "translate(0px, -10px) rotate(0deg)";
+                                    elementChild.style.width = arr[i].HP / 100 * parseInt(arr[i].Width);
+                                    elementChild.style.transform = "translate(0px, -10px) rotate(0deg)";
                                 }
                                 else if(a ==270)
                                 {
-                                    document.getElementById(arr[i].Id + "-health-bar").style.width = arr[i].HP / 100 * parseInt(arr[i].Width);
-                                    document.getElementById(arr[i].Id + "-health-bar").style.transform = "translate(-25px, 18px) rotate(270deg)";
+
+                                    elementChild.style.width = arr[i].HP / 100 * parseInt(arr[i].Width);
+                                    elementChild.style.transform = "translate(-25px, 18px) rotate(270deg)";
                                 }
                             }
                             break;
@@ -135,12 +148,12 @@
                             if(objects[i].UserId == userId)
                             {
                                 window.location.href = "https://localhost:7215/Game/Lose?userId=" + userId;
-                                console.log("проигравший перенаправлен");
+
                             }
                             else
                             {
                                 window.location.href = "https://localhost:7215/Game/Win?userId=" + userId;
-                                console.log("победивший  перенаправлен");
+
                             }
                         }
 
@@ -174,20 +187,26 @@
         document.addEventListener('DOMContentLoaded', function ()
         {
 
-
-            $.get("https://localhost:7215/Game/GetElements?gameId="+gameId+"&userId="+userId, function(data) {
+            var WinWidth = window.innerWidth;
+            var WinHeight = window.innerHeight;
+            console.log(WinWidth);
+            console.log(WinHeight);
+            $.get("https://localhost:7215/Game/GetElements?gameId="+gameId+"&userId="+userId + "&WinWidth=" + WinWidth + "&WinHeight" + WinHeight, function(data) {
                 var arr = JSON.parse(data);
 
                 for (let i = 0; i < arr.length; i++) {
                     if (arr[i].Type == "hero" && arr[i].UserId == userId)
                     {
                         hero = arr[i];
+                        console.log(1);
                     }
+
                     myRender(arr[i]);
                 }
                 objects = arr; // objects - объекты на клиенте arr - объекты на сервере
+
             });
-            var playInterval = setInterval(play, 30);
+            var playInterval = setInterval(play, 60);
         });
     </script>
 </head>

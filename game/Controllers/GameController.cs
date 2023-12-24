@@ -79,7 +79,7 @@ namespace game.Controllers
             .WithIdentity(game.Id.ToString(), "group1")     // идентифицируем триггер с именем и группой
             .StartNow()                                     // запуск сразу после начала выполнения
             .WithSimpleSchedule(x => x                      // настраиваем выполнение действия
-                .WithInterval(new TimeSpan(0, 0, 0, 0, 30)) // каждые 30 мс
+                .WithInterval(new TimeSpan(0, 0, 0, 0, 60)) // каждые 30 мс
                 .RepeatForever())                           // бесконечное повторение
             .Build();
 
@@ -154,7 +154,7 @@ namespace game.Controllers
         }
         
 
-        public IActionResult GetElements(int gameId, int userId)
+        public IActionResult GetElements(int gameId, int userId, int WinWidth, int WinHeight)
         {
 
             if (BL.GameLogic.allGames.ContainsKey(gameId))
@@ -167,9 +167,9 @@ namespace game.Controllers
                 Entity.Objects.BaseObject[] temp = BL.GameLogic.allGames[gameId].Values
                 .Select(item => (Entity.Objects.BaseObject)item.Clone())
                 .ToArray();
+
                 var json = JsonSerializer.Serialize((object[])temp);
                 return Ok(json);
-
             }
             else return Ok();
         }

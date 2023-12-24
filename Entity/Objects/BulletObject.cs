@@ -18,11 +18,13 @@ namespace Entity.Objects
             BackgroundSize = "contatin";
             Position = "absolute";
             Type = "bullet";
-
+            Destroy = false;
             XPos = 0;
             YPos = 0;
             XDelta = 0;
             YDelta = 0;
+
+            ZIndex = 2;
         }
     }
 }

@@ -10,8 +10,8 @@ namespace Entity.Objects
         public HeroObject() : base()
         {
             Mess = "";
-            Width = 40;
-            Height = 40;
+            Width = 30;
+            Height = 30;
             Left = 910;
             Bottom = 150;
             BackgroundImage = "url(/im/player-top.png)";
@@ -26,6 +26,8 @@ namespace Entity.Objects
             YDelta = 0;
             XPos = 0;
             YPos = 0;
+            ZIndex = 5;
+            Opacity = 1;
 
         }
     }

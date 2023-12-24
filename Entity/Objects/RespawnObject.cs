@@ -6,22 +6,18 @@ using System.Threading.Tasks;
 
 namespace Entity.Objects
 {
-    public  class BlockObject : BaseObject
+    public class RespawnObject : BaseObject
     {
-        public BlockObject() : base()
+        public RespawnObject() : base()
         {
             Width = 30;
             Height = 30;
-            Left = 510;
-            Bottom = 510;
-            BackgroundImage = "url(/im/block.png)";
+            BackgroundImage = "url(/im/respawn.png)";
             BackgroundSize = "contain";
             Position = "absolute";
-            Type = "Block";
-            Destroy = true;
-            HP = 50;
-            ZIndex = 1;
-            
+            Type = "Respawn";
+            Destroy = false;
+            ZIndex = 2;
         }
     }
 }

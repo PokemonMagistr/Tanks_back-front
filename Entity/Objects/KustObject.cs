@@ -6,22 +6,21 @@ using System.Threading.Tasks;
 
 namespace Entity.Objects
 {
-    public  class BlockObject : BaseObject
+    public class KustObject : BaseObject
     {
-        public BlockObject() : base()
+        public KustObject() : base()
         {
             Width = 30;
             Height = 30;
             Left = 510;
             Bottom = 510;
-            BackgroundImage = "url(/im/block.png)";
+            BackgroundImage = "url(/im/Kust.png)";
             BackgroundSize = "contain";
             Position = "absolute";
-            Type = "Block";
-            Destroy = true;
-            HP = 50;
-            ZIndex = 1;
-            
+            Type = "Kust";
+            Destroy = false;
+            ZIndex = 2;
+            Opacity = 0.7;
         }
     }
 }
