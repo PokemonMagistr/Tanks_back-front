@@ -172,6 +172,27 @@ namespace game.Controllers
             var playersInJson = JsonSerializer.Serialize(users);
             return Ok(playersInJson);
         }
+        public IActionResult GetPlayers2(int gameId)
+        {
+            //List<Entity.Player> users = new List<Entity.Player>();
+            //foreach (var i in BL.GameLogic.usersInGame[gameId])
+            //{
+            //    users.Add(BL.PlayerBL.Get(i.Key));
+            //}
+
+            List<Entity.Objects.BaseObject> players = new List<Entity.Objects.BaseObject>();
+            foreach (var i in BL.GameLogic.allGames[gameId].Values)
+            {
+                if (i.Type == "hero")
+                {
+                    players.Add(i);
+                }
+            }
+            var playersInJson2 = JsonSerializer.Serialize(players);
+
+            //var playersInJson = JsonSerializer.Serialize(users);
+            return Ok(playersInJson2);
+        }
         public async Task<IActionResult> Win(int userId)
         {
             var player = BL.PlayerBL.Get(userId);
