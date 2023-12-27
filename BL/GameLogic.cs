@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Concurrent;
-using System.Text;
-using System.Threading.Tasks;
-using Quartz;
-using System.Diagnostics.SymbolStore;
-using System.Configuration;
-using System.Reflection.PortableExecutable;
-using Quartz.Util;
+﻿using System.Collections.Concurrent;
 
 namespace BL
 {
@@ -22,7 +13,7 @@ namespace BL
 
         //public static ConcurrentDictionary<int, ConcurrentDictionary<string, ConcurrentDictionary<string, string>>> Messages = new  ConcurrentDictionary<int, ConcurrentDictionary<string, ConcurrentDictionary<string, string>>>();
         public static ConcurrentDictionary<int, ConcurrentDictionary<string, Entity.Objects.BaseObject>> arrKusts = new ConcurrentDictionary<int, ConcurrentDictionary<string, Entity.Objects.BaseObject>>();
-       
+
         //public static Entity.Objects.BaseObject temp;
         public static Entity.Objects.BaseObject obj;
         public static void Initialization(Entity.Game game)
@@ -119,7 +110,7 @@ namespace BL
             #endregion
 
             #region Защита звёзд
-            for (int i=0; i<4; i++) // Левая защита звезды
+            for (int i = 0; i < 4; i++) // Левая защита звезды
             {
                 var block = new Entity.Objects.BlockObject();
                 block.Left = 40 + (i * 30);
@@ -130,7 +121,7 @@ namespace BL
             {
                 var block = new Entity.Objects.BlockObject();
                 block.Left = 130;
-                block.Bottom = 370 - (i*30);
+                block.Bottom = 370 - (i * 30);
                 arr.TryAdd(block.Id, block);
             }
             for (int i = 0; i < 4; i++)// Левая защита звезды
@@ -166,7 +157,7 @@ namespace BL
             #endregion
 
             #region центр
-            for (int i=0; i<2; i++) // желекза по центру
+            for (int i = 0; i < 2; i++) // желекза по центру
             {
                 var block = new Entity.Objects.NRBlockObject();
                 block.Left = 750;
@@ -174,14 +165,14 @@ namespace BL
                 arr.TryAdd(block.Id, block);
             }
 
-            for(int i=0; i<11; i++) // над жеелзкой
+            for (int i = 0; i < 11; i++) // над жеелзкой
             {
                 var block = new Entity.Objects.BlockObject();
                 block.Bottom = 390;
                 block.Left = 600 + (i * 30);
                 arr.TryAdd(block.Id, block);
             }
-            for(int i=0; i<11; i++) //под железкой
+            for (int i = 0; i < 11; i++) //под железкой
             {
                 var block = new Entity.Objects.BlockObject();
                 block.Left = 600 + (i * 30);
@@ -191,14 +182,14 @@ namespace BL
             #endregion
 
             #region нижние полосы кирпич
-            for (int i=0; i<6; i++) // нижние полосы
+            for (int i = 0; i < 6; i++) // нижние полосы
             {
                 var block = new Entity.Objects.BlockObject();
                 block.Left = 350 + (i * 30);
                 block.Bottom = 30;
                 var block2 = new Entity.Objects.BlockObject();
                 block2.Bottom = 30;
-                block2.Left = 1000 + (i*30);
+                block2.Left = 1000 + (i * 30);
 
                 var block3 = new Entity.Objects.BlockObject();
                 block3.Left = 350 + (i * 30);
@@ -228,17 +219,17 @@ namespace BL
             #endregion
 
             #region кусты по центру
-            for (int i=0; i<5; i++) // кусты по центру
+            for (int i = 0; i < 5; i++) // кусты по центру
             {
                 var kust1 = new Entity.Objects.KustObject();
-                kust1.Left = 600 + (i*30);
+                kust1.Left = 600 + (i * 30);
                 kust1.Bottom = 330;
                 var kust2 = new Entity.Objects.KustObject();
                 kust2.Left = 600 + (i * 30);
                 kust2.Bottom = 360;
 
                 var kust3 = new Entity.Objects.KustObject();
-                kust3.Left = 780 + (i*30);
+                kust3.Left = 780 + (i * 30);
                 kust3.Bottom = 330;
                 var kust4 = new Entity.Objects.KustObject();
                 kust4.Left = 780 + (i * 30);
@@ -267,11 +258,11 @@ namespace BL
             #endregion
 
             #region НР по 3 блока с кустами
-            for (int i=0; i<3; i++)
+            for (int i = 0; i < 3; i++)
             {
                 var block = new Entity.Objects.NRBlockObject();
-                block.Left = 720 + (i*30);
-                block.Bottom = 540 - (i*30);
+                block.Left = 720 + (i * 30);
+                block.Bottom = 540 - (i * 30);
                 var block2 = new Entity.Objects.NRBlockObject();
                 block2.Left = 780 - (i * 30);
                 block2.Bottom = 210 - (i * 30);
@@ -282,7 +273,7 @@ namespace BL
             #endregion
 
             #region У респауна прямоугольники
-            for (int i=0; i<4; i++)
+            for (int i = 0; i < 4; i++)
             {
                 var block = new Entity.Objects.BlockObject();
                 block.Bottom = 400 + (i * 30);
@@ -302,7 +293,7 @@ namespace BL
             {
                 var block = new Entity.Objects.BlockObject();
                 block.Bottom = 490;
-                block.Left = 220 - (i*30);
+                block.Left = 220 - (i * 30);
                 arr.TryAdd(block.Id, block);
             }
             for (int i = 0; i < 4; i++)
@@ -345,7 +336,7 @@ namespace BL
                 arr.TryAdd(block.Id, block);
             }
             //////////////////////////////////
-            for (int i=0; i<4; i++)
+            for (int i = 0; i < 4; i++)
             {
                 var block = new Entity.Objects.BlockObject();
                 block.Bottom = 400 + (i * 30);
@@ -410,7 +401,7 @@ namespace BL
             #endregion
 
             #region КУСТЫ У РЕСПАУНОВ
-            for (int i=0; i < 6; i++)
+            for (int i = 0; i < 6; i++)
             {
                 var block = new Entity.Objects.KustObject();
                 block.Bottom = 430 - (i * 30);
@@ -464,13 +455,13 @@ namespace BL
 
             #region Блоки у кустов
 
-            for (int i=0; i<8; i++)
+            for (int i = 0; i < 8; i++)
             {
-                for(int j=0; j<3; j++)
+                for (int j = 0; j < 3; j++)
                 {
                     var block = new Entity.Objects.BlockObject();
-                    block.Left = 70 + (i*30);
-                    block.Bottom = 60 + (j*30);
+                    block.Left = 70 + (i * 30);
+                    block.Bottom = 60 + (j * 30);
                     arr.TryAdd(block.Id, block);
 
                     var block2 = new Entity.Objects.BlockObject();
@@ -501,9 +492,9 @@ namespace BL
             #endregion
 
             #region блоки у НР блоков
-            for(int i=0; i<3; i++)
+            for (int i = 0; i < 3; i++)
             {
-                for(int j=0; j<4; j++)
+                for (int j = 0; j < 4; j++)
                 {
                     var block = new Entity.Objects.BlockObject();
                     block.Left = 660 - (i * 30);
@@ -541,27 +532,32 @@ namespace BL
             allButtons[gameId].TryAdd(userId, new ConcurrentDictionary<int, bool>());
             usersInGame[gameId].TryAdd(userId, true);
 
-            ///Messages[gameId].TryAdd(userId.ToString(), new ConcurrentDictionary<string, string>());
+
 
             var count = 0;
-            foreach(var i in usersInGame[gameId].Values)
+            foreach (var i in usersInGame[gameId].Values)
             {
                 count++;
             }
 
-            var userHero = new Entity.Objects.HeroObject();
-            if(count == 1)
+
+            if (count == 1)
             {
+                var userHero = new Entity.Objects.HeroObject("red");
                 userHero.Left = 200;
                 userHero.Bottom = 345;
+                userHero.UserId = userId;
+                allGames[gameId].TryAdd(userHero.Id, userHero);
             }
-            else if(count ==2)
+            else if (count == 2)
             {
+                var userHero = new Entity.Objects.HeroObject("blue");
                 userHero.Left = 1290;
                 userHero.Bottom = 345;
+                userHero.UserId = userId;
+                allGames[gameId].TryAdd(userHero.Id, userHero);
             }
-            userHero.UserId = userId;
-            allGames[gameId].TryAdd(userHero.Id, userHero);
+
 
         }
 
@@ -613,46 +609,45 @@ namespace BL
             foreach (var userId in usersInGame[gameId].Keys)
             {
 
-                foreach(var i in allGames[gameId].Values)
+                foreach (var i in allGames[gameId].Values)
                 {
-                    if(i.UserId == userId)
+                    if (i.UserId == userId)
                     {
-                        if(i.XPos !=0)
+                        if (i.XPos != 0)
                         {
                             var ax = i.Left + i.XDelta;
                             var ax1 = i.Left + i.XDelta + i.Width;
                             var ay = i.Bottom;
                             var ay1 = i.Bottom + i.Height;
 
-                            //var count = 0;
-                            //foreach (var kust in arrKusts[gameId].Values)
-                            //{
+                            var count = 0;
+                            foreach (var kust in arrKusts[gameId].Values)
+                            {
 
-                            //    double cx = kust.Left;
-                            //    double cx1 = kust.Left + kust.Width;
-                            //    double cy = kust.Bottom;
-                            //    double cy1 = kust.Bottom + kust.Height;
-                            //    if (Intersects(cx + 5, cx1 - 5 , cy + 5, cy1 - 5, ax - i.XDelta, ax1 - i.XDelta, ay, ay1) == true)
-                            //    {
-                            //        Console.WriteLine("ЕСТЬ ЕСТЬ ЕСТЬ ЕСТЬ");
-                            //        count++;
-                            //        i.Opacity = 0.3;
-                            //    }
-                            //}
-                            //if (count == 0)
-                            //{
-                            //    i.Opacity = 1;
-                            //}
+                                double cx = kust.Left;
+                                double cx1 = kust.Left + kust.Width;
+                                double cy = kust.Bottom;
+                                double cy1 = kust.Bottom + kust.Height;
+                                if (Intersects(cx + 5, cx1 - 5, cy + 5, cy1 - 5, ax - i.XDelta, ax1 - i.XDelta, ay, ay1) == true)
+                                {
+                                    count++;
+                                    i.Opacity = 0.3;
+                                }
+                            }
+                            if (count == 0)
+                            {
+                                i.Opacity = 1;
+                            }
 
                             bool canMove = true;
-                            foreach(var k  in allGames[gameId].Values)
+                            foreach (var k in allGames[gameId].Values)
                             {
                                 double cx = k.Left;
                                 double cx1 = k.Left + k.Width;
                                 double cy = k.Bottom;
-                                double cy1 = k.Bottom + k.Height;                    
+                                double cy1 = k.Bottom + k.Height;
                                 if (i.UserId == k.UserId || k.Type == "Respawn" || k.Type == "Kust") continue;
-                                if (Intersects(cx,cx1,cy,cy1, ax,ax1,ay,ay1) == true)
+                                if (Intersects(cx, cx1, cy, cy1, ax, ax1, ay, ay1) == true)
                                 {
                                     canMove = false;
                                     i.XDelta = 0;
@@ -660,7 +655,7 @@ namespace BL
                                     break;
                                 }
                             }
-                            if(canMove && i.XPos != 0 && i.XPos < 32 && i.XPos > -32)
+                            if (canMove && i.XPos != 0 && i.XPos < 32 && i.XPos > -32)
                             {
                                 if (i.XPos != 0 && i.XPos < 32 && i.XPos > -32)
                                 {
@@ -672,9 +667,9 @@ namespace BL
                                     break;
                                 }
                             }
-                            
+
                         }
-                        if(i.YPos !=0)
+                        if (i.YPos != 0)
                         {
                             //hero.XPos = hero.XPos - hero.XDelta;
                             var ax = i.Left;
@@ -684,7 +679,7 @@ namespace BL
                             bool canMove = true;
                             foreach (var k in allGames[gameId].Values)
                             {
-                                
+
                                 double cx = k.Left;
                                 double cx1 = k.Left + k.Width;
                                 double cy = k.Bottom;
@@ -698,7 +693,7 @@ namespace BL
                                     break;
                                 }
                             }
-                            if(canMove && i.YPos != 0 && i.YPos < 32 && i.YPos > -32)
+                            if (canMove && i.YPos != 0 && i.YPos < 32 && i.YPos > -32)
                             {
                                 if (i.YPos != 0 && i.YPos < 32 && i.YPos > -32)
                                 {
@@ -713,16 +708,16 @@ namespace BL
 
                         }
                     }
-                   
+
                 }
             }
-            
+
 
         }
 
         public static void MoveBullets(int gameId)
         {
-            foreach(var i in allGames[gameId].Values)
+            foreach (var i in allGames[gameId].Values)
             {
                 if (i.Type == "bullet") //Дввижение пули по Х
                 {
@@ -741,24 +736,35 @@ namespace BL
                             double cy = sb.Bottom;
                             double cy1 = sb.Bottom + sb.Height;
                             if (i.Id == sb.Id || sb.Type == "Kust" || sb.Type == "Respawn") continue;
-                            
+
                             if (Intersects(cx, cx1, cy, cy1, ax, ax1, ay, ay1) == true)
                             {
 
-                                if(sb.Type == "hero")
+                                if (sb.Type == "hero")
                                 {
                                     sb.HP = sb.HP - 25;
-                                    if(sb.HP <= 0)
+                                    if (sb.HP <= 0)
                                     {
-                                        sb.Mess = "You Lose";
-
-                                        _ = allGames[gameId].Remove(sb.Id, out _);
+                                        if (sb.Color == "red")
+                                        {
+                                            sb.Left = 200;
+                                            sb.Bottom = 345;
+                                            sb.HP = 100;
+                                            sb.Dies++;
+                                        }
+                                        else if (sb.Color == "blue")
+                                        {
+                                            sb.Left = 1290;
+                                            sb.Bottom = 345;
+                                            sb.HP = 100;
+                                            sb.Dies++;
+                                        }
                                     }
                                 }
-                                else if(sb.Destroy)
+                                else if (sb.Destroy)
                                 {
                                     sb.HP -= 25;
-                                    if(sb.HP <=0)
+                                    if (sb.HP <= 0)
                                     {
                                         obj = sb;
                                         _ = allGames[gameId].Remove(obj.Id, out _);
@@ -790,7 +796,7 @@ namespace BL
                             }
                             else if (i.XPos == 0)
                             {
-                                
+
                             }
                         }
                     }
@@ -815,10 +821,22 @@ namespace BL
                                     sb.HP = sb.HP - 25;
                                     if (sb.HP <= 0)
                                     {
-                                        sb.Mess = "You Lose";
-
-                                        _ = allGames[gameId].Remove(sb.Id, out _);
+                                        if (sb.Color == "red")
+                                        {
+                                            sb.Left = 200;
+                                            sb.Bottom = 345;
+                                            sb.HP = 100;
+                                            sb.Dies++;
+                                        }
+                                        else if(sb.Color == "blue")
+                                        {
+                                            sb.Left = 1290;
+                                            sb.Bottom = 345;
+                                            sb.HP = 100;
+                                            sb.Dies++;
+                                        }
                                     }
+                                        
                                 }
                                 else if (sb.Destroy)
                                 {
@@ -839,7 +857,7 @@ namespace BL
 
                                 break;
                             }
-                            
+
                         }
                         if (canMoveb)
                         {
@@ -864,20 +882,20 @@ namespace BL
                 }
 
 
-            }         
-            
+            }
+
         }
 
         public static void CheckMove(int gameId)
         {
-            foreach(var userId in usersInGame[gameId].Keys)
+            foreach (var userId in usersInGame[gameId].Keys)
             {
-                foreach(var i in allGames[gameId].Values)
+                foreach (var i in allGames[gameId].Values)
                 {
-                    if(i.UserId == userId)
+                    if (i.UserId == userId)
                     {
                         var lastButtonEntry = allButtons[gameId][userId].LastOrDefault();
-                        if(lastButtonEntry.Key != 0 && lastButtonEntry.Value == true)
+                        if (lastButtonEntry.Key != 0 && lastButtonEntry.Value == true)
                         {
                             switch (lastButtonEntry.Key)
                             {
@@ -902,14 +920,14 @@ namespace BL
 
                             if (i.XPos == 0)
                             {
-                                
+
                                 //hero.Angle = 270;
                                 i.XPos = -30;
                                 i.XDelta = -6;
                                 i.Transform = "rotate(" + i.Angle + "deg)";
 
                             }
-                            
+
                         }
                         //right
                         if (GameLogic.allButtons[gameId][userId].ContainsKey(39))
@@ -933,7 +951,7 @@ namespace BL
                                 i.YPos = 30;
                                 i.YDelta = 6;
                                 i.Transform = "rotate(" + i.Angle + "deg)";
-                                
+
                             }
                         }
                         //down
@@ -946,7 +964,7 @@ namespace BL
                                 i.YPos = -30;
                                 i.YDelta = -6;
                                 i.Transform = "rotate(" + i.Angle + "deg)";
-                                
+
                             }
                         }
                         //пробел
@@ -959,14 +977,14 @@ namespace BL
                                 i.LastFire = DateTime.Now;
                                 if (i.Angle == 0)
                                 {
-                                    bullet.Left = i.Left + i.Width/2;
+                                    bullet.Left = i.Left + i.Width / 2;
                                     bullet.Bottom = i.Bottom + i.Height + 10;
                                     bullet.YPos = 500;
                                     bullet.YDelta = 20;
                                 }
                                 else if (i.Angle == 180)
                                 {
-                                    bullet.Left = i.Left + i.Width/2;
+                                    bullet.Left = i.Left + i.Width / 2;
                                     bullet.Bottom = i.Bottom - 10;
                                     bullet.YPos = -500;
                                     bullet.YDelta = -20;
@@ -974,17 +992,17 @@ namespace BL
                                 else if (i.Angle == 90)
                                 {
                                     bullet.Left = i.Left + i.Width + 10;
-                                    bullet.Bottom = i.Bottom + i.Height/2;
+                                    bullet.Bottom = i.Bottom + i.Height / 2;
                                     bullet.XPos = 500;
                                     bullet.XDelta = 20;
                                 }
                                 else if (i.Angle == 270)
                                 {
                                     bullet.Left = i.Left - 10;
-                                    bullet.Bottom = i.Bottom + i.Height/2;
+                                    bullet.Bottom = i.Bottom + i.Height / 2;
                                     bullet.XPos = -500;
                                     bullet.XDelta = -20;
-                                    
+
                                 }
                                 GameLogic.allGames[gameId].TryAdd(bullet.Id, bullet);
                             }

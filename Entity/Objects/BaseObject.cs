@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Entity.Objects
+﻿namespace Entity.Objects
 {
     public class BaseObject : ICloneable
     {
@@ -34,6 +31,9 @@ namespace Entity.Objects
 
         public double Opacity { get; set; }
         private static int CurentId = 0;
+        public string Color { get; set; }
+        public int Dies { get; set; }
+        public bool FlagDies { get; set; }
 
         public BaseObject()
         {
@@ -74,6 +74,9 @@ namespace Entity.Objects
 
             clone.ZIndex = this.ZIndex;
             clone.Opacity = this.Opacity;
+            clone.Color = this.Color;
+            clone.Dies = this.Dies;
+            clone.FlagDies = this.FlagDies;
             return clone;
         }
     }

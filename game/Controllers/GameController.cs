@@ -1,20 +1,8 @@
-﻿using BL;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.AspNetCore.Mvc;
 using Quartz;
 using Quartz.Impl;
-using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Security.Claims;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace game.Controllers
 {
@@ -57,7 +45,7 @@ namespace game.Controllers
         //[Authorize]
         public async Task<IActionResult> CreateGame()
         {
-            
+
             var game = new Entity.Game();
 
             game.HostId = BL.PlayerBL.Get(User.Identity.Name).Id;
@@ -135,8 +123,8 @@ namespace game.Controllers
                 {
 
                     BL.GameLogic.allButtons[gameId][userId].TryAdd(buttonCode, true);
-                    
-                    
+
+
                 }
             }
             else
@@ -152,18 +140,18 @@ namespace game.Controllers
             }
             return Ok(Json(true));
         }
-        
+
 
         public IActionResult GetElements(int gameId, int userId, int WinWidth, int WinHeight)
         {
 
             if (BL.GameLogic.allGames.ContainsKey(gameId))
             {
-                var hero = (Entity.Objects.BaseObject)BL.GameLogic.allGames[gameId].FirstOrDefault(item => item.Value.Type == "hero" && ((Entity.Objects.BaseObject)item.Value).UserId == userId).Value;
-                if (hero == null)
-                {
-                    hero = new Entity.Objects.HeroObject();
-                }
+                //var hero = (Entity.Objects.BaseObject)BL.GameLogic.allGames[gameId].FirstOrDefault(item => item.Value.Type == "hero" && ((Entity.Objects.BaseObject)item.Value).UserId == userId).Value;
+                //if (hero == null)
+                //{
+                //    hero = new Entity.Objects.HeroObject();
+                //}
                 Entity.Objects.BaseObject[] temp = BL.GameLogic.allGames[gameId].Values
                 .Select(item => (Entity.Objects.BaseObject)item.Clone())
                 .ToArray();
@@ -172,6 +160,17 @@ namespace game.Controllers
                 return Ok(json);
             }
             else return Ok();
+        }
+        public IActionResult GetPlayers(int gameId)
+        {
+            List<Entity.Player> users = new List<Entity.Player>();
+            foreach (var i in BL.GameLogic.usersInGame[gameId])
+            {
+                users.Add(BL.PlayerBL.Get(i.Key));
+            }
+
+            var playersInJson = JsonSerializer.Serialize(users);
+            return Ok(playersInJson);
         }
         public async Task<IActionResult> Win(int userId)
         {

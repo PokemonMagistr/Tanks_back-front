@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Quartz;
-using System.Net;
-using System.Threading.Tasks;
-using System.Runtime.CompilerServices;
+﻿using Quartz;
 
 namespace BL
 {

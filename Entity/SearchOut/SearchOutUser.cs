@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-
-namespace Entity.SearchOut
+﻿namespace Entity.SearchOut
 {
     public class SearchOutUser
     {

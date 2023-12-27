@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace BL
+﻿namespace BL
 {
     static public class SessionBL
     {

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace BL
+﻿namespace BL
 {
     public class GameBL
     {

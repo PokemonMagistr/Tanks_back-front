@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Entity.Objects
+﻿namespace Entity.Objects
 {
-    public  class BlockObject : BaseObject
+    public class BlockObject : BaseObject
     {
         public BlockObject() : base()
         {
@@ -21,7 +15,7 @@ namespace Entity.Objects
             Destroy = true;
             HP = 50;
             ZIndex = 1;
-            
+
         }
     }
 }

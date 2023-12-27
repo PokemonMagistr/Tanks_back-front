@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Entity.Objects
+﻿namespace Entity.Objects
 {
     public class FlagObject : BaseObject
     {
@@ -21,8 +15,10 @@ namespace Entity.Objects
                 Destroy = true;
                 HP = 25;
                 ZIndex = 1;
+                FlagDies = false;
+                Color = "red";
             }
-            else if(color == "blue")
+            else if (color == "blue")
             {
                 Width = 90;
                 Height = 68;
@@ -33,6 +29,8 @@ namespace Entity.Objects
                 Destroy = true;
                 HP = 25;
                 ZIndex = 1;
+                FlagDies = false;
+                Color = "blue";
             }
         }
     }

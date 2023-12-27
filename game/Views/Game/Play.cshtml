@@ -6,9 +6,9 @@
 
 <head>
     <meta charset="utf-8" />
-    <script src="https://code.jquery.com/jquery-3.6.0.js"
+    @*<script src="https://code.jquery.com/jquery-3.6.0.js"
             integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-            crossorigin="anonymous"></script>
+            crossorigin="anonymous"></script>*@
     <script>
         var objects = [];
 
@@ -87,6 +87,7 @@
                             element.style.bottom = arr[i].Bottom + "px";
 
 
+
                             if (arr[i].Type == "hero") 
                             {
                                 
@@ -121,6 +122,7 @@
                                     elementChild.style.transform = "translate(-25px, 18px) rotate(270deg)";
                                 }
                             }
+
                             break;
                         }
 
@@ -143,21 +145,19 @@
                     }
                     if (!ex) 
                     {
-                        if(objects[i].Type == "hero")
+
+                        if (objects[i].Type == "Flag")
                         {
-                            if(objects[i].UserId == userId)
-                            {
-                                window.location.href = "https://localhost:7215/Game/Lose?userId=" + userId;
-
-                            }
-                            else
-                            {
-                                window.location.href = "https://localhost:7215/Game/Win?userId=" + userId;
-
-                            }
+                            //if(arr[i].FlagDies == true)
+                            //    {
+                                    FinalShow(arr[i].Color);
+                                    console.log("Флаг умер");
+                                //}
                         }
-
-                        document.body.removeChild(document.getElementById(objects[i].Id));
+                        else
+                        {
+                            document.body.removeChild(document.getElementById(objects[i].Id));
+                        }
                     }
                 }
 
@@ -167,6 +167,57 @@
 
 
         }
+        function FinalShow(color)
+        {
+           
+            $.get("https://localhost:7215/Game/GetPlayers?gameId=" + gameId, function(data) {
+                var arr = JSON.parse(data);
+                for(let i =0; i<arr.length; i++)
+                {
+                 console.log("Objectttttt " + arr[i]);
+                }
+
+                var player1 = createPlayerResultDiv(arr[0]);
+                var player2 = createPlayerResultDiv(arr[1]);
+                var resultsContainer = document.createElement('div');
+                    resultsContainer.id = 'resultsContainer';
+                    resultsContainer.style.position = 'conatin';  // Размещаем дивы внутри контейнера в ряд
+                    resultsContainer.style.justifyContent = 'space-between';  // Распределяем пространство между дивами
+                    resultsContainer.style.zIndex = 9;
+                    resultsContainer.style.width = 500;
+                    resultsContainer.style.height = 700;
+                    resultsContainer.style.left = 10;
+                    resultsContainer.style.bottom = 200;
+
+                    // Добавляем дивы в контейнер
+                    resultsContainer.appendChild(player1);
+                    resultsContainer.appendChild(player2);
+
+                    // Добавляем контейнер с результатами к body
+                    document.body.appendChild(resultsContainer);
+                //
+
+                
+
+            });
+
+        }
+
+function createPlayerResultDiv(playerData) {
+                    // Создаем див для игрока
+                    var playerResultDiv = document.createElement('div');
+                    console.log("playerData" + playerData);
+            console.log("playerData.Name" + playerData.Name);
+
+                    playerResultDiv.innerHTML = `${playerData.Name}</br> Очки - ${playerData.Score}`;
+                    playerResultDiv.style.border = '1px solid #ccc';  // Граница для наглядности
+                    playerResultDiv.style.padding = '10px';  // Поля для наглядности
+                    playerResultDiv.style.fontSize = "40px";
+                    playerResultDiv.style.color = "white";
+
+                    return playerResultDiv;
+                }
+           
 
         document.addEventListener('keydown', function (event) {
             $.get("https://localhost:7215/Game/PressButton?buttonCode="+event.keyCode+"&isDown=true&gameId="+gameId+"&userId="+userId);
@@ -209,6 +260,9 @@
             var playInterval = setInterval(play, 60);
         });
     </script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
 </head>
 <body style="
     background: black;

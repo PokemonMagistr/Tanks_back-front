@@ -1,7 +1,4 @@
-﻿using System;
-
-
-namespace Entity.SearchIn
+﻿namespace Entity.SearchIn
 {
     public class SearchingGame
     {
